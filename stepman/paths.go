@@ -240,7 +240,11 @@ func GetStepCollectionDirPath(route SteplibRoute, id, version string) string {
 
 // GetStepmanDirPath ...
 func GetStepmanDirPath() string {
-	return filepath.Join(pathutil.UserHomeDir(), StepmanDirname)
+	currentDir, err := pathutil.CurrentWorkingDirectoryAbsolutePath()
+	if err != nil {
+		return filepath.Join(pathutil.UserHomeDir(), StepmanDirname)
+	}
+	return filepath.Join(currentDir, StepmanDirname)
 }
 
 // GetCollectionsDirPath ...
